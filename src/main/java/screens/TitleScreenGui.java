@@ -1,5 +1,7 @@
 package screens;
 
+import constants.CommonConstants;
+
 import javax.swing.*;
 
 public class TitleScreenGui extends JFrame {
@@ -22,6 +24,9 @@ public class TitleScreenGui extends JFrame {
 
         //set the default close operation of the frame to exit after the application has been closed
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        //Change the background Color
+        getContentPane().setBackground(CommonConstants.LIGHT_BLUE);
 
 
 
