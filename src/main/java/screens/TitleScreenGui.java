@@ -1,28 +1,111 @@
 package screens;
 
+import constants.CommonConstants;
+
 import javax.swing.*;
+import java.awt.*;
 
 public class TitleScreenGui extends JFrame {
 
+    private JComboBox categoriesMenu;
+    private JTextField numberOfQuestionsTextField;
+
     public TitleScreenGui(){
-        //call the constructor of the superclass with the title of "Title Screen"
+
+        //Call the constructor of the superclass with the title of "Title Screen"
         super("Title Screen");
 
-        //set the size of the JFrame to 400 px wide and 565 px tall
+        //Set the size of the JFrame to 400 px wide and 565 px tall
         setSize(400,565);
 
-        //set the layout manager of the frame to null, allowing manual positioning of the components
+        //Set the layout manager of the frame to null, allowing manual positioning of the components
         setLayout(null);
 
-        //set the frame to be centered on the screen when displayed
+        //Set the frame to be centered on the screen when displayed
         setLocationRelativeTo(null);
 
-        //disable resizing of the frame by the user
+        //Disable resizing of the frame by the user
         setResizable(false);
 
-        //set the default close operation of the frame to exit after the application has been closed
+        //Set the default close operation of the frame to exit after the application has been closed
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        //Change the background Color
+        getContentPane().setBackground(CommonConstants.LIGHT_BLUE);
+
+        addGuiComponents();
+
+    }
+
+
+    //Adding Visual Components
+    private void addGuiComponents(){
+
+        //Title label
+        JLabel titleLabel = new JLabel("Quiz Game!");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        titleLabel.setBounds(0,20,390,43);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setForeground(CommonConstants.BRIGHT_YELLOW);
+        add(titleLabel);
+
+        //Choose Category Label
+        JLabel chooseCategoryLabel = new JLabel("Choose a Category");
+        chooseCategoryLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        chooseCategoryLabel.setBounds(0,90,400,43);
+        chooseCategoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        chooseCategoryLabel.setForeground(CommonConstants.BRIGHT_YELLOW);
+        add(chooseCategoryLabel);
+
+        //Category drop down menu
+
+        //Temporary categories list (will delete later)
+        String [] categories = new String [] {"Math", "Programming", "History"};
+
+        categoriesMenu = new JComboBox(categories);
+        categoriesMenu.setBounds(20,120,337,45);
+        categoriesMenu.setForeground(CommonConstants.DARK_BLUE);
+        add(categoriesMenu);
+
+        //Num of questions label
+        JLabel numOfQuestionsLabel = new JLabel("Number of Questions: ");
+        numOfQuestionsLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        numOfQuestionsLabel.setBounds(20,190,172,20);
+        numOfQuestionsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        numOfQuestionsLabel.setForeground(CommonConstants.BRIGHT_YELLOW);
+        add(numOfQuestionsLabel);
+
+        //Num of questions text input field
+        numberOfQuestionsTextField = new JTextField("10");
+        numberOfQuestionsTextField.setFont(new Font("Arial", Font.BOLD, 16));
+        numberOfQuestionsTextField.setBounds(200,190,148,26);
+        numberOfQuestionsTextField.setHorizontalAlignment(SwingConstants.CENTER);
+        numberOfQuestionsTextField.setForeground(CommonConstants.DARK_BLUE);
+        add(numberOfQuestionsTextField);
+
+        //Start button
+        JButton startButton = new JButton("Start!");
+        startButton.setFont(new Font("Arial", Font.BOLD, 16));
+        startButton.setBounds(65,290,262,45);
+        startButton.setBackground(CommonConstants.BRIGHT_YELLOW);
+        startButton.setForeground(CommonConstants.LIGHT_BLUE);
+        add(startButton);
+
+        //Exit Button
+        JButton exitButton = new JButton("Exit");
+        exitButton.setFont(new Font("Arial", Font.BOLD, 16));
+        exitButton.setBounds(65,350,262,45);
+        exitButton.setBackground(CommonConstants.BRIGHT_YELLOW);
+        exitButton.setForeground(CommonConstants.LIGHT_BLUE);
+        add(exitButton);
+
+        //Create a Question Button
+        JButton createAQuestionButton = new JButton("Create a Question");
+        createAQuestionButton.setFont(new Font("Arial", Font.BOLD, 16));
+        createAQuestionButton.setBounds(65,420,262,45);
+        createAQuestionButton.setBackground(CommonConstants.BRIGHT_YELLOW);
+        createAQuestionButton.setForeground(CommonConstants.LIGHT_BLUE);
+        add(createAQuestionButton);
 
 
     }
