@@ -73,6 +73,21 @@ public class CreateQuestionScreenGui extends JFrame {
 
         addAnswerComponents();
 
+        //Submit Button
+        JButton submitButton = new JButton("Submit");
+        submitButton.setFont(new Font("Arial", Font.BOLD, 16));
+        submitButton.setBounds(300,450,262,45);
+        submitButton.setForeground(CommonConstants.DARK_BLUE);
+        submitButton.setBackground(CommonConstants.BRIGHT_YELLOW);
+        add(submitButton);
+
+        //Go Back Label Button
+        JLabel goBackLabel = new JLabel("Go Back");
+        goBackLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        goBackLabel.setBounds(300,500,262,20);
+        goBackLabel.setForeground(CommonConstants.BRIGHT_YELLOW);
+        goBackLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(goBackLabel);
 
     }
 
@@ -102,7 +117,7 @@ public class CreateQuestionScreenGui extends JFrame {
             answerTextFields [i].setBounds(470, 90 + (i * verticalSpacing), 310,36);
             answerTextFields[i].setFont(new Font("Arial", Font.PLAIN,16));
             answerTextFields[i].setForeground(CommonConstants.DARK_BLUE);
-            add( answerTextFields[i]);
+            add(answerTextFields[i]);
 
         }
 
