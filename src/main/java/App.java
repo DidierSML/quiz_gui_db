@@ -1,3 +1,4 @@
+import screens.CreateQuestionScreenGui;
 import screens.TitleScreenGui;
 
 import javax.swing.*;
@@ -9,8 +10,11 @@ public class App {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                //Create and display the title screen gui window
-                new TitleScreenGui().setVisible(true);
+                //Create and display the "title screen" gui window
+//                new TitleScreenGui().setVisible(true);
+
+                //Create and display the "Create Questions Gui"
+                new CreateQuestionScreenGui().setVisible(true);
             }
         });
     }
