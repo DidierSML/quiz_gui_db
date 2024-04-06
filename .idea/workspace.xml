@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2435b0a8-6e21-46fe-b823-ad68eb8fd546" name="Changes" comment="Creating Method -addGuiComponents - in order to Contain JLabel, JComboBox, JTextField &amp; JButton to Create the Interacción from the View">
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/Answer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/JDBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/Question.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/screens/CreateQuestionScreenGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/screens/CreateQuestionScreenGui.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
