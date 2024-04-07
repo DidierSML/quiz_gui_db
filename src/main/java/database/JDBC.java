@@ -5,7 +5,7 @@ import java.sql.*;
 public class JDBC {
 
     //MySQL Configurations
-    private static final String DB_URL = "jdbc:mysql://3306/quiz_gui_db";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/quiz_gui_db";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "DSML1";
 
