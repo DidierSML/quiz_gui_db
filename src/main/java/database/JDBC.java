@@ -147,7 +147,7 @@ public class JDBC {
             );
 
             PreparedStatement insertAnswerQuery = connection.prepareStatement(
-                    "INSERT INTO ANSWERS (QUESTION_ID, ANSWER_TEXT, IS_CORRECT)" +
+                    "INSERT INTO ANSWER (QUESTION_ID, ANSWER_TEXT, IS_CORRECT)" +
                             "VALUES(?,?,?)",
                     Statement.RETURN_GENERATED_KEYS
             );
