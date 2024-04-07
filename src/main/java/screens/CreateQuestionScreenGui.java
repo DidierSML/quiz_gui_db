@@ -1,9 +1,14 @@
 package screens;
 
 import constants.CommonConstants;
+import database.JDBC;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CreateQuestionScreenGui extends JFrame {
 
@@ -79,6 +84,43 @@ public class CreateQuestionScreenGui extends JFrame {
         submitButton.setBounds(300,450,262,45);
         submitButton.setForeground(CommonConstants.DARK_BLUE);
         submitButton.setBackground(CommonConstants.BRIGHT_YELLOW);
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(validateInput()){
+                    String question = questionTextArea.getText();
+                    String category = categoryTextField.getText();
+                    String[] answers = new String [answerTextFields.length];
+                    int correctIndex = 0;
+                    for(int i = 0; i < answerTextFields.length; i++){
+                        answers [i] = answerTextFields [i].getText();
+                        if(answerRadioButtons[i].isSelected()){
+                            correctIndex = i;
+                        }
+                    }
+
+                    //Update Database
+                    if(JDBC.saveQuestionCategoryAndAnswerToDatabase(question,category,
+                                                                    answers,correctIndex)){
+                        //Update Successful
+                        JOptionPane.showMessageDialog(CreateQuestionScreenGui.this,
+                                "Successfully Added Question!");
+
+                        //Reset Fields
+                        resetFields();
+                    }else{
+                        //Update Failed
+                        JOptionPane.showMessageDialog(CreateQuestionScreenGui.this,
+                                "Failed to Add Question...");
+                    }
+                }else{
+                    //Invalid Input
+                    JOptionPane.showMessageDialog(CreateQuestionScreenGui.this,
+                            "Error: Invalid Input");
+                }
+            }
+        });
+
         add(submitButton);
 
         //Go Back Label Button
@@ -87,6 +129,21 @@ public class CreateQuestionScreenGui extends JFrame {
         goBackLabel.setBounds(300,500,262,20);
         goBackLabel.setForeground(CommonConstants.BRIGHT_YELLOW);
         goBackLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        goBackLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //Display title screen
+                TitleScreenGui titleScreenGui = new TitleScreenGui();
+                titleScreenGui.setLocationRelativeTo(CreateQuestionScreenGui.this);
+
+                //Dispose of the Screen
+                CreateQuestionScreenGui.this.dispose();
+
+                //Make title Screen Visible
+                titleScreenGui.setVisible(true);
+
+            }
+        });
         add(goBackLabel);
 
     }
@@ -121,6 +178,35 @@ public class CreateQuestionScreenGui extends JFrame {
 
         }
 
+        //Give a default value to the first radio button
+        answerRadioButtons[0].setSelected(true);
 
+
+    }
+
+    //True - Valid Input
+    //False - Valid Input
+    private boolean validateInput (){
+        //Make sure that question field is not empty
+        if(questionTextArea.getText().replaceAll("", "").length() <=0 ) return false;
+
+        //Make sure that the category field is not empty
+        if(categoryTextField.getText().replaceAll("",""). length() <=0) return false;
+
+        //Make sure all answers fields are not empty
+        for(int i = 0; i < answerTextFields.length;i++ ){
+            if(answerTextFields[i].getText().replaceAll("","").length() <=0)
+                return false;
+        }
+
+        return true;
+    }
+
+    private void resetFields(){
+        questionTextArea.setText("");
+        categoryTextField.setText("");
+        for(int i = 0; i < answerTextFields.length; i++){
+            answerTextFields[i].setText("");
+        }
     }
 }
