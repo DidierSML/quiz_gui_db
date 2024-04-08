@@ -1,9 +1,14 @@
 package screens;
 
 import constants.CommonConstants;
+import database.Category;
+import database.JDBC;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class TitleScreenGui extends JFrame {
 
@@ -58,11 +63,8 @@ public class TitleScreenGui extends JFrame {
         add(chooseCategoryLabel);
 
         //Category drop down menu
-
-        //Temporary categories list (will delete later)
-        String [] categories = new String [] {"Math", "Programming", "History"};
-
-        categoriesMenu = new JComboBox(categories);
+        ArrayList <String> categoryList = JDBC.getCategories();
+        categoriesMenu = new JComboBox(categoryList.toArray());
         categoriesMenu.setBounds(20,120,337,45);
         categoriesMenu.setForeground(CommonConstants.DARK_BLUE);
         add(categoriesMenu);
@@ -89,6 +91,31 @@ public class TitleScreenGui extends JFrame {
         startButton.setBounds(65,290,262,45);
         startButton.setBackground(CommonConstants.BRIGHT_YELLOW);
         startButton.setForeground(CommonConstants.LIGHT_BLUE);
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Dispose of this Screen
+                if(validateInput()){
+                    //Retrieve Category
+                    Category category = JDBC.getCategory(categoriesMenu.getSelectedItem().toString());
+
+                    //Invalid Category
+                    if(category == null) return;
+
+                    int numOfQuestions = Integer.parseInt(numberOfQuestionsTextField.getText());
+
+                    //Load Quiz Screen
+                    QuizScreenGui quizScreenGui = new QuizScreenGui(category, numOfQuestions);
+                    quizScreenGui.setLocationRelativeTo(TitleScreenGui.this);
+
+                    //Dispose of this Scream
+                    TitleScreenGui.this.dispose();
+
+                    //Display Quiz Screen
+                    quizScreenGui.setVisible(true);
+                }
+            }
+        });
         add(startButton);
 
         //Exit Button
@@ -97,6 +124,13 @@ public class TitleScreenGui extends JFrame {
         exitButton.setBounds(65,350,262,45);
         exitButton.setBackground(CommonConstants.BRIGHT_YELLOW);
         exitButton.setForeground(CommonConstants.LIGHT_BLUE);
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Dispose of this Screen
+                TitleScreenGui.this.dispose();
+            }
+        });
         add(exitButton);
 
         //Create a Question Button
@@ -105,8 +139,39 @@ public class TitleScreenGui extends JFrame {
         createAQuestionButton.setBounds(65,420,262,45);
         createAQuestionButton.setBackground(CommonConstants.BRIGHT_YELLOW);
         createAQuestionButton.setForeground(CommonConstants.LIGHT_BLUE);
+        createAQuestionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Create question screen gui
+                CreateQuestionScreenGui createQuestionScreenGui = new CreateQuestionScreenGui();
+                createQuestionScreenGui.setLocationRelativeTo(TitleScreenGui.this);
+
+                //Dispose of this title screen
+                TitleScreenGui.this.dispose();
+
+                //Display create a question screen gui
+                createQuestionScreenGui.setVisible(true);
+
+
+
+            }
+        });
         add(createAQuestionButton);
 
 
     }
+
+    //True - valid Input
+    //False - invalid Input
+    private boolean validateInput(){
+        //Num of Questions field must not be empty
+        if(numberOfQuestionsTextField.getText().replaceAll(" ", " ").length() <= 0) return false;
+
+        //No category is Chosen
+        if(categoriesMenu.getSelectedItem() == null ) return false;
+
+        return true;
+
+        }
+
 }

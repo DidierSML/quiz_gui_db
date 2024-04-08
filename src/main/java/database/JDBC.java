@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class JDBC {
 
@@ -45,6 +46,41 @@ public class JDBC {
     }
 
     //Question Methods
+    public static ArrayList <Question> getQuestions (Category category){
+        ArrayList <Question> questions = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection(
+                    DB_URL, DB_USER, DB_PASSWORD
+            );
+
+            //Query that retrieves all the questions of a category in random order
+            PreparedStatement getQuestionsQuery = connection.prepareStatement(
+                    "SELECT * FROM QUESTION JOIN CATEGORY" +
+                            "ON QUESTION.CATEGORY_ID = CATEGORY.CATEGORY_ID" +
+                            "WHERE CATEGORY.CATEGORY_NAME= ? ORDER BY RAND()"
+            );
+            getQuestionsQuery.setString(1, category.getCategoryName());
+            ResultSet resultSet = getQuestionsQuery.executeQuery();
+            while(resultSet.next()){
+                int questionId = resultSet.getInt("question_id");
+                int categoryId = resultSet.getInt("category_id");
+                String question = resultSet.getString("question_text");
+                questions.add(new Question(questionId,categoryId,question));
+
+            }
+
+            return questions;
+
+        }catch (Exception e){
+
+        }
+
+
+        //Return null if it could not find the questions in the database
+        return null;
+
+    }
     private static Question insertQuestion(Category category, String questionText){
 
         try{
@@ -79,7 +115,7 @@ public class JDBC {
 
 
     //Category Methods
-    private static Category getCategory (String category){
+    public static Category getCategory (String category){
         try{
             Connection connection = DriverManager.getConnection(
                     DB_URL,DB_USER,DB_PASSWORD
@@ -103,6 +139,36 @@ public class JDBC {
 
         //Return null if it could not find the category in the database
         return null;
+    }
+
+    public static ArrayList<String> getCategories (){
+
+        ArrayList <String> categoryList = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection(
+                    DB_URL, DB_USER, DB_PASSWORD
+            );
+
+            Statement getCategoriesQuery = connection.createStatement();
+            ResultSet resultSet = getCategoriesQuery.executeQuery(
+                    "SELECT * FROM CATEGORY");
+
+            while (resultSet.next()){
+                String categoryName = resultSet.getString("category_name");
+                categoryList.add(categoryName);
+            }
+
+            return categoryList;
+
+        }catch (Exception e){
+
+        }
+
+
+        //Return null if it could not find the categories in the database
+        return null;
+
     }
 
     private static Category insertCategory (String category){
@@ -137,6 +203,41 @@ public class JDBC {
     }
 
     //Answer Methods
+    public static ArrayList <Answer> getAnswers (Question question){
+        ArrayList <Answer> answers = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection(
+                    DB_URL, DB_USER, DB_PASSWORD
+            );
+
+            //Query that retrieves all the answers of a question in random order
+            PreparedStatement getAnswersQuery = connection.prepareStatement(
+                    "SELECT * FROM QUESTION JOIN ANSWER" +
+                            "ON QUESTION.QUESTION_ID = ANSWER.QUESTION_ID" +
+                            "WHERE QUESTION.QUESTION_ID = ? ORDER BY RAND()"
+            );
+            getAnswersQuery.setInt(1, question.getQuestion_Id());
+
+            ResultSet resultSet = getAnswersQuery.executeQuery();
+            while(resultSet.next()){
+                int answerId = resultSet.getInt("idanswer");
+                String answerText = resultSet.getString("answer_text");
+                boolean isCorrect = resultSet.getBoolean("is_correct");
+                Answer answer = new Answer(answerId, question.getQuestion_Id(),answerText,isCorrect);
+                answers.add(answer);
+            }
+
+            return answers;
+
+        }catch (Exception e){
+
+        }
+
+
+        //Return null if it could not find the answers in the database
+        return null;
+    }
     //True - successfully inserted answers
     //False - failed inserted answers
     private static boolean insertAnswers (Question question, String [] answers, int correctIndex){
