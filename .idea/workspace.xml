@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2435b0a8-6e21-46fe-b823-ad68eb8fd546" name="Changes" comment="Adding Functionalities to the Class -CreateQuestionsScreenGui-">
+    <list default="true" id="2435b0a8-6e21-46fe-b823-ad68eb8fd546" name="Changes" comment="Solving issue in Mysql adding autoincrement to -answerId- column from -answer- Table">
+      <change afterPath="$PROJECT_DIR$/src/main/java/screens/QuizScreenGui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/JDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/JDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/screens/TitleScreenGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/screens/TitleScreenGui.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
